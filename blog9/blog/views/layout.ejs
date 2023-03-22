@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+<header id="mainHeader" class="main">
+    Mi pagina web
+</header>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="/author">Autor</a>
+    <a href="/posts">Posts</a>
+    <% if (locals.loginUser?.isAdmin) { %>
+        <a href="/users">Usuarios</a>
+    <% } %>
+    
+</nav>
+
+
+<div>
+    <% if (!locals.loginUser) { %>
+        <a href="/login">Login</a>
+    <% } else { %>
+        <a href="/index/<%= loginUser.id %>"><%= loginUser.username %></a>
+        <a href="/login?_method=DELETE">Logout</a>
+    <% } %>
+</div>
+
+<section>
+        <%- body %>
+</section>
+
+<footer>
+    <address>
+        Pagina de Javier Morgado
+    </address>
+</footer>
+    
+</body>
+</html>

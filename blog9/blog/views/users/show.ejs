@@ -1,0 +1,33 @@
+<h1>
+    User:
+</h1>
+
+<ul>
+    <li>
+        User name:
+        <b><%= user.username %></b>
+    </li>
+
+    <li>
+        Administrator:
+        <b><%= user.isAdmin ? "Yes" : "No" %></b>
+    </li>
+
+    <li>
+        Email:
+        <b><%= user.email %></b>
+    </li>
+
+</ul>
+
+<p>
+    <% if (locals.loginUser?.isAdmin || locals.loginUser?.id === user.id) { %>
+        <a href="/users/<%= user.id %>/edit" class="button">Edit</a>
+
+        <a href="/users/<%= user.id %>?_method=DELETE"
+            onClick="confirm('Delete user: <%= user.username %>');"
+            class="button">Delete</a>
+    <% } %>
+</p>
+
+<a href="/" class="button">Home</a>

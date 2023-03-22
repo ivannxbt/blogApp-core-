@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posts</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <h1>
+        Posts:
+    </h1>
+    
+    <table>
+        <% for (var i in posts) { %>
+            <% var post = posts[i]; %>
+            <tr>
+                <td>
+                    <% include ../attachments/_attachment %>
+                </td>
+                <td>
+                    <h1><%= post.title %></h1>
+                    <a href="/posts/<%= post.id %>/"><%= post.question %></a>
+                    <br/>
+                    <small class="author"> by <%= post.author?.username ?? "Anonymous" %> </small>
+                </td>
+                <td>
+                    <% if (locals.loginUser && (locals.loginUser.isAdmin || locals.loginUser.id === post.authorId)) { %>
+                        <a href="/posts/<%= post.id %>" class="button">Show</a>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (locals.loginUser && (locals.loginUser.isAdmin || locals.loginUser.id === post.authorId)) { %>
+                        <a href="/posts/<%= post.id %>/edit" class="button" id="">Edit</a>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (locals.loginUser && (locals.loginUser.isAdmin || locals.loginUser.id === post.authorId)) { %>
+                        <a href="/posts/<%= post.id %>?_method=DELETE"
+                           onClick="return confirm('Delete: <%= post.question %>');"
+                           class="button">Delete</a>
+                    <% } %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    <% if (locals.loginUser) { %>
+        <a href="/posts/new" class="button">Create New Quiz</a>
+    <% } %>
+</body>
+</html>
